@@ -72,7 +72,6 @@ def insertionATSVB(ptr,data,sval):
         newnode=Node(data)
         newnode.next=ptr
         return newnode
-
     flag=False
     copyptr=ptr
     while copyptr!=None:
@@ -96,6 +95,33 @@ def insertionATSVB(ptr,data,sval):
         return ptr
 
 
+def insertionATSVA(ptr,data,sval):
+    if ptr==None:
+        newnode=Node(data)
+        newnode.next=ptr
+        return newnode
+    flag=False
+    copyptr=ptr
+    while copyptr!=None:
+        if copyptr.data==sval:
+            flag=True
+            break
+        copyptr=copyptr.next
+
+    if flag==True:
+        qtr=ptr
+        ftr=qtr.next
+        while qtr.data!=sval:
+            qtr=qtr.next
+            ftr=ftr.next
+        newnode=Node(data)
+        newnode.next=ftr
+        qtr.next=newnode
+        return ptr
+    else:
+        print("Search Value Not Found")
+        return ptr
+    
     
 
 
@@ -112,5 +138,7 @@ a=insertionATEND(a,40)
 a=insertionATBT(a,5,0)
 a=insertionATBT(a,50,4)
 a=insertionATBT(a,60,2)
+a=insertionATSVA(a,15,5)
+a=insertionATSVA(a,400,40)
 Traversal(a)
 
