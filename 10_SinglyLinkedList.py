@@ -1,7 +1,6 @@
 class Node:
     data=None
     next=None
-
     def __init__(self,data):
         self.data=data
 
@@ -16,55 +15,102 @@ def insertionATB(ptr,data):
     return newnode
 
 def insertionATEND(ptr,data):
+    if ptr==None:
+        newnode=Node(data)
+        newnode.next=ptr
+        return newnode
+
     qtr=ptr
     ftr=qtr.next
     while ftr!=None:
-        ftr=ftr.next
         qtr=qtr.next
+        ftr=ftr.next
+    
     newnode=Node(data)
     newnode.next=None
     qtr.next=newnode
     return ptr
 
-
 def insertionATBT(ptr,data,index):
-    qtr=ptr
-    ftr=qtr.next
-    i=0
-    while i<index-1:
-        qtr=qtr.next
-        ftr=ftr.next
-        i=i+1
-    newnode=Node(data)
-    newnode.next=ftr
-    qtr.next=newnode
-    return ptr
+    if ptr==None:
+        newnode=Node(data)
+        newnode.next=ptr
+        return newnode
+    if index==0:
+        newnode=Node(data)
+        newnode.next=ptr
+        return newnode
+    count=0
+    copyptr=ptr
+    while copyptr!=None:
+        count=count+1
+        copyptr=copyptr.next
+
+    if count>index:
+        qtr=ptr
+        ftr=qtr.next
+        i=0
+        while i<index-1:
+            qtr=qtr.next
+            ftr=ftr.next
+            i=i+1
+        newnode=Node(data)
+        newnode.next=ftr
+        qtr.next=newnode
+        return ptr
+    else:
+        print("Index Out Of The Range")
+        return ptr
+
 
 def insertionATSVB(ptr,data,sval):
-    qtr=ptr
-    ftr=qtr.next
-    while ftr.data!=sval:
-        qtr=qtr.next
-        ftr=ftr.next
-    newnode=Node(data)
-    newnode.next=ftr
-    qtr.next=newnode
-    return ptr
+    if ptr==None:
+        newnode=Node(data)
+        newnode.next=ptr
+        return newnode
+    if ptr.data==sval:
+        newnode=Node(data)
+        newnode.next=ptr
+        return newnode
 
-a=Node(10)
-b=Node(20)
-c=Node(30)
-d=Node(40)
+    flag=False
+    copyptr=ptr
+    while copyptr!=None:
+        if copyptr.data==sval:
+            flag=True
+            break
+        copyptr=copyptr.next
 
-a.next=b
-b.next=c
-c.next=d
-d.next=None
+    if flag==True:
+        qtr=ptr
+        ftr=qtr.next
+        while ftr.data!=sval:
+            qtr=qtr.next
+            ftr=ftr.next
+        newnode=Node(data)
+        newnode.next=ftr
+        qtr.next=newnode
+        return ptr
+    else:
+        print("Search Value Not Found")
+        return ptr
 
-a=insertionATB(a,50)
-a=insertionATB(a,60)
-a=insertionATEND(a,100)
-a=insertionATEND(a,120)
-a=insertionATBT(a,200,6)
-a=insertionATSVB(a,300,200)
+
+    
+
+
+
+
+
+a=None
+
+a=insertionATEND(a,10)
+a=insertionATEND(a,20)
+a=insertionATEND(a,30)
+a=insertionATEND(a,40)
+
+a=insertionATBT(a,5,0)
+a=insertionATBT(a,50,4)
+a=insertionATBT(a,60,2)
 Traversal(a)
+
